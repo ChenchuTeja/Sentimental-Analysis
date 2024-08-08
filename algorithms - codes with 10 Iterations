@@ -1,0 +1,324 @@
+CODE
+
+SVM: 
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the dataset from the CSV file
+df = pd.read_csv('/content/dataset2.csv')
+
+# Preprocess the data
+X = df['Text']  # Text data (use 'Text' as the column name)
+y = df['Sentiment_Label']  # Sentiment labels (use 'Sentiment_Label' as the column name)
+
+# Additional features from the dataset
+date_time = df['Date_Time']
+user = df['User']
+platform = df['Platform']
+likes = df['Likes']
+hashtags = df['Hashtags']
+location = df['Location']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test, date_time_train, date_time_test, user_train, user_test, platform_train, platform_test, likes_train, likes_test, hashtags_train, hashtags_test, location_train, location_test = train_test_split(
+    X, y, date_time, user, platform, likes, hashtags, location, test_size=0.2, random_state=42
+)
+
+# Convert text data to TF-IDF features
+vectorizer = TfidfVectorizer(max_features=1000)  # Adjust max_features as needed
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+# Train the SVM classifier
+svm_classifier = SVC(kernel='linear')  # Linear kernel (you can choose other kernels)
+svm_classifier.fit(X_train_tfidf, y_train)
+
+# Predict sentiment on the test data
+y_pred = svm_classifier.predict(X_test_tfidf)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy:.2f}')
+
+# Display classification report (includes precision, recall, F1-score)
+report = classification_report(y_test, y_pred)
+print('Classification Report:\n', report)
+
+
+
+
+KNN :
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report
+Q
+# Load the dataset from the CSV file
+df = pd.read_csv('/content/dataset2.csv')
+
+# Preprocess the data
+X = df['Text']  # Text data (use 'Text' as the column name)
+y = df['Sentiment_Label']  # Sentiment labels (use 'Sentiment_Label' as the column name)
+
+# Additional features from the dataset
+date_time = df['Date_Time']
+user = df['User']
+platform = df['Platform']
+likes = df['Likes']
+hashtags = df['Hashtags']
+location = df['Location']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test, date_time_train, date_time_test, user_train, user_test, platform_train, platform_test, likes_train, likes_test, hashtags_train, hashtags_test, location_train, location_test = train_test_split(
+    X, y, date_time, user, platform, likes, hashtags, location, test_size=0.2, random_state=42
+)
+
+# Convert text data to TF-IDF features
+vectorizer = TfidfVectorizer(max_features=1000)  # Adjust max_features as needed
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+# Train the KNN classifier
+k = 5  # Number of neighbors (adjust as needed)
+knn_classifier = KNeighborsClassifier(n_neighbors=k)
+knn_classifier.fit(X_train_tfidf, y_train)
+
+# Predict sentiment on the test data
+y_pred = knn_classifier.predict(X_test_tfidf)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy:.2f}')
+
+# Display classification report (includes precision, recall, F1-score)
+report = classification_report(y_test, y_pred)
+print('Classification Report:\n', report)
+
+
+
+
+
+
+LOGISTIC REGRESSION:
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the dataset from the CSV file
+df = pd.read_csv('/content/dataset2.csv')
+
+# Preprocess the data
+X = df['Text']  # Text data (use 'Text' as the column name)
+y = df['Sentiment_Label']  # Sentiment labels (use 'Sentiment_Label' as the column name)
+
+# Additional features from the dataset
+date_time = df['Date_Time']
+user = df['User']
+platform = df['Platform']
+likes = df['Likes']
+hashtags = df['Hashtags']
+location = df['Location']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test, date_time_train, date_time_test, user_train, user_test, platform_train, platform_test, likes_train, likes_test, hashtags_train, hashtags_test, location_train, location_test = train_test_split(
+    X, y, date_time, user, platform, likes, hashtags, location, test_size=0.2, random_state=42
+)
+
+# Convert text data to TF-IDF features
+vectorizer = TfidfVectorizer(max_features=1000)  # Adjust max_features as needed
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+# Train the Logistic Regression classifier
+logistic_regression = LogisticRegression()
+logistic_regression.fit(X_train_tfidf, y_train)
+
+# Predict sentiment on the test data
+y_pred = logistic_regression.predict(X_test_tfidf)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy:.2f}')
+
+# Display classification report (includes precision, recall, F1-score)
+report = classification_report(y_test, y_pred)
+print('Classification Report:\n', report)
+
+
+
+
+
+
+RANDOM FOREST:
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the dataset from the CSV file
+df = pd.read_csv('/content/dataset2.csv')
+
+# Preprocess the data
+X = df['Text']  # Text data (use 'Text' as the column name)
+y = df['Sentiment_Label']  # Sentiment labels (use 'Sentiment_Label' as the column name)
+
+# Additional features from the dataset
+date_time = df['Date_Time']
+user = df['User']
+platform = df['Platform']
+likes = df['Likes']
+hashtags = df['Hashtags']
+location = df['Location']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test, date_time_train, date_time_test, user_train, user_test, platform_train, platform_test, likes_train, likes_test, hashtags_train, hashtags_test, location_train, location_test = train_test_split(
+    X, y, date_time, user, platform, likes, hashtags, location, test_size=0.2, random_state=42
+)
+
+# Convert text data to TF-IDF features
+vectorizer = TfidfVectorizer(max_features=1000)  # Adjust max_features as needed
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+# Train the Random Forest classifier
+random_forest = RandomForestClassifier(n_estimators=100, random_state=42)  # Adjust hyperparameters as needed
+random_forest.fit(X_train_tfidf, y_train)
+
+# Predict sentiment on the test data
+y_pred = random_forest.predict(X_test_tfidf)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy:.2f}')
+
+# Display classification report (includes precision, recall, F1-score)
+report = classification_report(y_test, y_pred)
+print('Classification Report:\n', report)
+
+
+
+
+
+
+
+TRANSFORMER-BASED MODEL:
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the dataset from the CSV file
+df = pd.read_csv('/content/dataset2.csv')
+
+# Preprocess the data
+X = df['Text']  # Text data (use 'Text' as the column name)
+y = df['Sentiment_Label']  # Sentiment labels (use 'Sentiment_Label' as the column name)
+
+# Additional features from the dataset
+date_time = df['Date_Time']
+user = df['User']
+platform = df['Platform']
+likes = df['Likes']
+hashtags = df['Hashtags']
+location = df['Location']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test, date_time_train, date_time_test, user_train, user_test, platform_train, platform_test, likes_train, likes_test, hashtags_train, hashtags_test, location_train, location_test = train_test_split(
+    X, y, date_time, user, platform, likes, hashtags, location, test_size=0.2, random_state=42
+)
+
+# Convert text data to TF-IDF features
+vectorizer = TfidfVectorizer(max_features=1000)  # Adjust max_features as needed
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+# Train the Random Forest classifier
+random_forest = RandomForestClassifier(n_estimators=100, random_state=42)  # Adjust hyperparameters as needed
+random_forest.fit(X_train_tfidf, y_train)
+
+# Predict sentiment on the test data
+y_pred = random_forest.predict(X_test_tfidf)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy:.2f}')
+
+# Display classification report (includes precision, recall, F1-score)
+report = classification_report(y_test, y_pred)
+print('Classification Report:\n', report)
+
+
+
+
+
+
+
+NAIVE BAYES:
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the dataset from the CSV file
+df = pd.read_csv('/content/dataset2.csv')
+
+# Preprocess the data
+X = df['Text']  # Text data (use 'Text' as the column name)
+y = df['Sentiment_Label']  # Sentiment labels (use 'Sentiment_Label' as the column name)
+
+# Additional features from the dataset
+date_time = df['Date_Time']
+user = df['User']
+platform = df['Platform']
+likes = df['Likes']
+hashtags = df['Hashtags']
+location = df['Location']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test, date_time_train, date_time_test, user_train, user_test, platform_train, platform_test, likes_train, likes_test, hashtags_train, hashtags_test, location_train, location_test = train_test_split(
+    X, y, date_time, user, platform, likes, hashtags, location, test_size=0.2, random_state=42
+)
+
+# Convert text data to TF-IDF features
+vectorizer = TfidfVectorizer(max_features=1000)  # Adjust max_features as needed
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+# Train the Naive Bayes classifier
+naive_bayes = MultinomialNB()  # Assuming Multinomial Naive Bayes for text classification
+naive_bayes.fit(X_train_tfidf, y_train)
+
+# Predict sentiment on the test data
+y_pred = naive_bayes.predict(X_test_tfidf)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy:.2f}')
+
+# Display classification report (includes precision, recall, F1-score)
+report = classification_report(y_test, y_pred)
+print('Classification Report:\n', report)
+
+
+
+
+
+
+
+
+ACCURACY RATE :-
+
+SVM...(0.49)
+KNN...(0.49)
+Logistic regression...( 0.49)
+Random forest algorithm (0.49)
+Naive bayes ...(0.49).
